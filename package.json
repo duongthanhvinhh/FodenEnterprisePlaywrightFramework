@@ -2,7 +2,28 @@
   "name": "fodenenterpriseplaywrightframework",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test_dev": "cross-env ENV_NAME=dev npx playwright test",
+    "test_qa": "cross-env ENV_NAME=qa npx playwright test",
+    "test_uat": "cross-env ENV_NAME=uat npx playwright test",
+    "test_prod": "cross-env ENV_NAME=prod npx playwright test",
+    "test_dev_chrome_hd": "cross-env ENV_NAME=dev npx playwright test --project=chromium --headed",
+    "test_qa_chrome_hd": "cross-env ENV_NAME=qa npx playwright test --project=chromium --headed",
+    "test_uat_chrome_hd": "cross-env ENV_NAME=uat npx playwright test --project=chromium --headed",
+    "test_prod_chrome_hd": "cross-env ENV_NAME=prod npx playwright test --project=chromium --headed",
+    "test_dev_firefox_hd": "cross-env ENV_NAME=dev npx playwright test --project=firefox --headed",
+    "test_qa_firefox_hd": "cross-env ENV_NAME=qa npx playwright test --project=firefox --headed",
+    "test_uat_firefox_hd": "cross-env ENV_NAME=uat npx playwright test --project=firefox --headed",
+    "test_prod_firefox_hd": "cross-env ENV_NAME=prod npx playwright test --project=firefox --headed",
+    "test_dev_chrome_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --project=chromium",
+    "test_qa_chrome_hl": "cross-env ENV_NAME=qa HEAD_LESS=true npx playwright test --project=chromium",
+    "test_uat_chrome_hl": "cross-env ENV_NAME=uat HEAD_LESS=true npx playwright test --project=chromium",
+    "test_prod_chrome_hl": "cross-env ENV_NAME=prod HEAD_LESS=true npx playwright test --project=chromium",
+    "test_dev_firefox_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --project=firefox",
+    "test_qa_firefox_hl": "cross-env ENV_NAME=qa HEAD_LESS=true npx playwright test --project=firefox",
+    "test_uat_firefox_hl": "cross-env ENV_NAME=uat HEAD_LESS=true npx playwright test --project=firefox",
+    "test_prod_firefox_hl": "cross-env ENV_NAME=prod HEAD_LESS=true npx playwright test --project=firefox"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -13,6 +34,7 @@
   },
   "dependencies": {
     "cross-env": "^7.0.3",
+    "crypto-js": "^4.2.0",
     "dotenv": "^16.5.0"
   }
 }

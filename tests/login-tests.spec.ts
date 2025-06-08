@@ -1,9 +1,12 @@
-import { test } from '../fixtures/pom-fixtures'
+import { test } from '../fixtures/common-fixtures'
 
 test.describe('Login Tests', () => {
     
-    test("Login with valid credentials",async ({loginPage}) => {
+    test("Login with valid credentials",async ({loginPage, commonUtils}) => {
+        const userName: string = commonUtils.decryptData(process.env.USER_NAME!);
+        const password: string = commonUtils.decryptData(process.env.PASSWORD!);
+        
         await loginPage.goToOrangeHrm();
-        await loginPage.loginOrangeHrm('Admin', "admin123");
+        await loginPage.loginOrangeHrm(userName, password);
     })
 })

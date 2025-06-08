@@ -8,7 +8,7 @@ import dotenv from 'dotenv'
 // import path from 'path';
 // dotenv.config({ path: path.resolve(__dirname, '.env') });
 dotenv.config({
-  path: process.env.ENV_NAME ? `./environments/.env.${process.env.ENV_NAME}` : `./environment/.env.dev`
+  path: process.env.ENV_NAME ? `./environments/.env.${process.env.ENV_NAME}` : `./environments/.env.dev`
 })
 
 /**
@@ -33,7 +33,9 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-    headless: false,
+    screenshot: 'only-on-failure',
+    video: 'off',
+    headless: process.env.HEAD_LESS === "true",
     launchOptions: {
       args: ['--no-sandbox', '--start-maximized']
     },
