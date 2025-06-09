@@ -8,6 +8,8 @@ jobs:
   test_dev_hl:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
