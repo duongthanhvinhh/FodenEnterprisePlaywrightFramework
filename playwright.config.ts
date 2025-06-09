@@ -37,7 +37,7 @@ export default defineConfig({
     video: 'off',
     headless: process.env.HEAD_LESS === "true",
     launchOptions: {
-      args: ['--no-sandbox', '--start-maximized']
+      args: ['--start-maximized']
     },
     viewport: null
   },
@@ -45,18 +45,28 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'Setup',
+      testMatch: 'global.setup.ts'
+    },
+    {
       name: 'chromium',
-      // use: { ...devices['Desktop Chrome'] },
+      dependencies: ['Setup'],
+      use: {storageState: './playwright/.auth/auth.json'},
+      // use: { ...devices['Desktop Chrome'], storageState: './playwright/.auth/auth.json' }
     },
 
     {
       name: 'firefox',
-      // use: { ...devices['Desktop Firefox'] },
+      dependencies: ['Setup'],
+      use: {storageState: './playwright/.auth/auth.json'},
+      // use: { ...devices['Desktop Firefox'], storageState: './playwright/.auth/auth.json' }
     },
 
     {
       name: 'webkit',
-      // use: { ...devices['Desktop Safari'] },
+      dependencies: ['Setup'],
+      use: {storageState: './playwright/.auth/auth.json'},
+      // use: { ...devices['Desktop Safari'], storageState: './playwright/.auth/auth.json' }
     },
 
     /* Test against mobile viewports. */

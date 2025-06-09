@@ -1,4 +1,4 @@
-import { test as bastTest } from '../fixtures/pom-fixtures'
+import { test as bastTest } from './pom-fixture'
 import CommonUtils from '../utils/common-util'
 
 

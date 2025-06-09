@@ -15,6 +15,10 @@
     "test_qa_firefox_hd": "cross-env ENV_NAME=qa npx playwright test --project=firefox --headed",
     "test_uat_firefox_hd": "cross-env ENV_NAME=uat npx playwright test --project=firefox --headed",
     "test_prod_firefox_hd": "cross-env ENV_NAME=prod npx playwright test --project=firefox --headed",
+    "test_dev_webkit_hd": "cross-env ENV_NAME=dev npx playwright test --project=webkit --headed",
+    "test_qa_webkit_hd": "cross-env ENV_NAME=qa npx playwright test --project=webkit --headed",
+    "test_uat_webkit_hd": "cross-env ENV_NAME=uat npx playwright test --project=webkit --headed",
+    "test_prod_webkit_hd": "cross-env ENV_NAME=prod npx playwright test --project=webkit --headed",
     "test_dev_chrome_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --project=chromium",
     "test_qa_chrome_hl": "cross-env ENV_NAME=qa HEAD_LESS=true npx playwright test --project=chromium",
     "test_uat_chrome_hl": "cross-env ENV_NAME=uat HEAD_LESS=true npx playwright test --project=chromium",
@@ -22,7 +26,11 @@
     "test_dev_firefox_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --project=firefox",
     "test_qa_firefox_hl": "cross-env ENV_NAME=qa HEAD_LESS=true npx playwright test --project=firefox",
     "test_uat_firefox_hl": "cross-env ENV_NAME=uat HEAD_LESS=true npx playwright test --project=firefox",
-    "test_prod_firefox_hl": "cross-env ENV_NAME=prod HEAD_LESS=true npx playwright test --project=firefox"
+    "test_prod_firefox_hl": "cross-env ENV_NAME=prod HEAD_LESS=true npx playwright test --project=firefox",
+    "test_dev_webkit_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --project=webkit",
+    "test_qa_webkit_hl": "cross-env ENV_NAME=qa HEAD_LESS=true npx playwright test --project=webkit",
+    "test_uat_webkit_hl": "cross-env ENV_NAME=uat HEAD_LESS=true npx playwright test --project=webkit",
+    "test_prod_webkit_hl": "cross-env ENV_NAME=prod HEAD_LESS=true npx playwright test --project=webkit"
   },
   "keywords": [],
   "author": "",

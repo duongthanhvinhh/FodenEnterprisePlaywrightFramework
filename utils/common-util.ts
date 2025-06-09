@@ -23,10 +23,8 @@ export default class CommonUtils {
     public encryptData(data: string): string {
         try {
             const encryptedData = cryptoJs.AES.encrypt(data, this.secretKey).toString();
-            console.log(`Encrypted Data: ${encryptedData}`);
             return encryptedData;
         } catch (error) {
-            console.error("Error encrypting data:", error);
             throw new Error("Failed to encrypt data.");
         } 
     }
@@ -39,11 +37,17 @@ export default class CommonUtils {
     public decryptData(data: string): string {
         try {
             const decryptedData = cryptoJs.AES.decrypt(data, this.secretKey).toString(cryptoJs.enc.Utf8);
-            console.log(`Decrypted Data: ${decryptedData}`);
             return decryptedData;
         } catch (error) {
-            console.error("Error decrypting data:", error);
             throw new Error("Failed to decrypt data.");
         }
+    }
+
+    public getDataFromEnvFile(property: string): string {
+        const value = process.env[property];
+        if (!value) {
+            throw new Error(`Environment variable ${property} is not defined`);
+        }
+        return value;
     }
 }
