@@ -15,7 +15,7 @@ test.describe('Login Tests', () => {
         console.log(await page.title());
     })
 
-    test('Test 4 - Login with valid credentials',async ({page, goToUrl, logOut}) => {        
+    test('Test 4 - Login with valid credentials',async ({page, goToUrl}) => {        
         console.log(await page.title());
     })
 })

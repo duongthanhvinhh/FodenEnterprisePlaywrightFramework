@@ -5,12 +5,15 @@ export class LoginPage{
     readonly userNameInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
+    readonly loginFailedBanner: Locator;
 
     constructor(page: Page){
         this.page = page;
         this.userNameInput = page.getByRole('textbox', {name: 'Username'});
         this.passwordInput = page.getByRole('textbox', {name: 'Password'});
         this.loginButton = page.getByRole('button', {name: 'Login'});
+        this.loginFailedBanner = page.getByRole('alert');
+
     }
 
     async goToOrangeHrm(){
@@ -22,4 +25,5 @@ export class LoginPage{
         await this.passwordInput.fill(password);
         await this.loginButton.click();
     }
+
 }
