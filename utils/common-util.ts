@@ -43,11 +43,24 @@ export default class CommonUtils {
         }
     }
 
+    /**
+     * Get data from env file by property's name
+     * @param property 
+     * @returns property value from env file
+     */
     public getDataFromEnvFile(property: string): string {
         const value = process.env[property];
         if (!value) {
             throw new Error(`Environment variable ${property} is not defined`);
         }
         return value;
+    }
+
+    /**
+     * Generates a random 4-digit number as a string.
+     * @returns A string representing a random 4-digit number.
+     */
+    public generateRandomFourDigitNumber(): string {
+        return Math.floor(1000 + Math.random() * 9000).toString();
     }
 }
