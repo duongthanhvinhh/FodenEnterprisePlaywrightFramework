@@ -1,5 +1,5 @@
-import { test, expect } from '../fixtures/hooks-fixture'
-import loginModuleData from '../data/login-module-data.json'
+import { test, expect } from '../../fixtures/hooks-fixture'
+import loginModuleData from '../../data/e2e-data/login-module-data.json'
 
 /**
  * Override the global setup auth to test login tests
