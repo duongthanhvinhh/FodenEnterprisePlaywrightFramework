@@ -1,3 +1,11 @@
+name: Foden Enterprise Playwright Typescript Framework
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
 jobs:
   e2e_tests_in_dev:
     timeout-minutes: 60
