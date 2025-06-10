@@ -1,29 +1,59 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
+
+# 🔹 Define reusable setup steps using YAML Anchors
+setup-steps: &setup-steps
+  - uses: actions/checkout@v4
+  - uses: actions/setup-node@v4
+    with:
+      node-version: lts/*
+  - name: Cache npm dependencies
+    uses: actions/cache@v4
+    with:
+      path: ~/.npm
+      key: npm-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      restore-keys: npm-cache-${{ runner.os }}-
+  - name: Install dependencies
+    run: npm ci
+  - name: Install Playwright Browsers
+    run: npx playwright install --with-deps
+
 jobs:
-  test_dev_hl:
+  E2E tests in Dev:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npm run test_dev_hl
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - *setup-steps
+      - name: Run Playwright E2E Tests
+        run: npm run test_dev_hl
+      - name: Upload Playwright Report for E2E
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-e2e
+          path: playwright-report/
+          retention-days: 30
+
+  API tests in Dev:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    steps:
+      - *setup-steps
+      - name: Run Playwright API Tests
+        run: npm run test_api
+      - name: Upload Playwright Report for API
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-api
+          path: playwright-report/
+          retention-days: 30
