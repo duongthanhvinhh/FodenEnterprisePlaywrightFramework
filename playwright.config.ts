@@ -15,7 +15,7 @@ dotenv.config({
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: './tests/e2e-tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -30,6 +30,12 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://localhost:3000',
+    baseURL: process.env.BOOKER_API_BASE_URL,
+    extraHTTPHeaders: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      // 'Authorization': 'Basic YWRtaW46cGFzc3dvcmQxMjM='
+    },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'retain-on-failure',
@@ -72,6 +78,10 @@ export default defineConfig({
       use: {storageState: './playwright/.auth/auth.json'},
       // use: { ...devices['Desktop Safari'], storageState: './playwright/.auth/auth.json' }
     },
+    {
+      name: 'apiTests',
+      testDir: './tests/api-tests'
+    }
 
     /* Test against mobile viewports. */
     // {

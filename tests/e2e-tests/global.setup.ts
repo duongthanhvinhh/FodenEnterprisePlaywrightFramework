@@ -1,5 +1,5 @@
 import { expect } from '@playwright/test';
-import { test } from '../fixtures/common-fixture'
+import { test } from '../../fixtures/common-fixture'
 import { TIMEOUT } from 'dns';
 
 test("Global setup for saving login authentication state", async ({page, commonUtils, loginPage, dashboardPage}) => {
