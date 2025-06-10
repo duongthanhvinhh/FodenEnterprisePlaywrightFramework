@@ -4,8 +4,6 @@
   "main": "index.js",
   "scripts": {
     "test_api": "cross-env ENV_NAME=dev npx playwright test --project=apiTests",
-
-    "test_api_e2e_dev_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --grep=@DEV && cross-env ENV_NAME=dev npx playwright test --project=apiTests",
     
     "test_dev_hd_retry_last_failures": "cross-env ENV_NAME=dev npx playwright test  --grep=@DEV --last-failed",
     "test_dev_hl_retry_last_failures": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test  --grep=@DEV --last-failed",
@@ -15,7 +13,7 @@
     "test_uat_hd": "cross-env ENV_NAME=uat npx playwright test --grep=@UAT",
     "test_prod_hd": "cross-env ENV_NAME=prod npx playwright test --grep=@PROD",
 
-    "test_dev_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --grep=@DEV",
+    "test_dev_hl": "cross-env ENV_NAME=dev HEAD_LESS=true npx playwright test --project=chromium --project=firefox --project=webkit --grep=@DEV",
     "test_qa_hl": "cross-env ENV_NAME=qa HEAD_LESS=true npx playwright test --grep=@QA",
     "test_uat_hl": "cross-env ENV_NAME=uat HEAD_LESS=true npx playwright test --grep=@UAT",    
     "test_prod_hl": "cross-env ENV_NAME=prod HEAD_LESS=true npx playwright test --grep=@PROD",    
