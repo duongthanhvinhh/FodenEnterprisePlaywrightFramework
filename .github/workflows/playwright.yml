@@ -12,11 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    permissions:
+      contents: write #Required for Github Pages deployment
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
@@ -25,16 +29,51 @@ jobs:
           restore-keys: npm-cache-${{ runner.os }}-
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Run Playwright E2E Tests
         run: npm run test_dev_hl
-      - name: Upload Playwright Report for E2E
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+
+      - name: 🛠 Generate Allure report
+        if: always()
+        run: npx allure generate ./allure-results --clean -o ./allure-report
+
+      - name: 🧾 Copy report into versioned folder
+        if: always()
+        run: |
+          mkdir -p ./gh-pages/build-${{ github.run_number }}
+          cp -r ./allure-report/* ./gh-pages/build-${{ github.run_number }}/
+
+      - name: 🧹 Clean up old builds (keep last 10 builds)
+        run: |
+          builds=$(ls ./gh-pages | grep 'build-' | sort -V)
+          old_builds=$(echo "$builds" | head -n -10)
+          for build in $old_builds; do
+            echo "Removing old build: $build"
+            rm -rf "./gh-pages/$build"
+          done
+
+      - name: 📎 Add summary link to GitHub UI
+        if: always()
+        run: echo "🧪 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/build-${{ github.run_number }}/)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 🚀 Deploy Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: playwright-report-e2e
-          path: playwright-report/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./gh-pages
+          keep_files: true  # ✅ Keep previous build-reports
+
+      - name: 📤 Upload Allure report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: ./allure-report
           retention-days: 30
 
   api_tests_in_dev:
@@ -42,11 +81,15 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
+
       - name: Cache npm dependencies
         uses: actions/cache@v4
         with:
@@ -55,14 +98,49 @@ jobs:
           restore-keys: npm-cache-${{ runner.os }}-
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Run Playwright API Tests
         run: npm run test_api
-      - name: Upload Playwright Report for API
-        uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
+
+      - name: 🛠 Generate Allure report
+        if: always()
+        run: npx allure generate ./allure-results --clean -o ./allure-report
+
+      - name: 🧾 Copy report into versioned folder
+        if: always()
+        run: |
+          mkdir -p ./gh-pages/build-${{ github.run_number }}
+          cp -r ./allure-report/* ./gh-pages/build-${{ github.run_number }}/
+
+      - name: 🧹 Clean up old builds (keep last 10 builds)
+        run: |
+          builds=$(ls ./gh-pages | grep 'build-' | sort -V)
+          old_builds=$(echo "$builds" | head -n -10)
+          for build in $old_builds; do
+            echo "Removing old build: $build"
+            rm -rf "./gh-pages/$build"
+          done
+
+      - name: 📎 Add summary link to GitHub UI
+        if: always()
+        run: echo "🧪 [View Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/build-${{ github.run_number }}/)" >> $GITHUB_STEP_SUMMARY
+
+      - name: 🚀 Deploy Allure report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          name: playwright-report-api
-          path: playwright-report/
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./gh-pages
+          keep_files: true  # ✅ Keep previous build-reports
+
+      - name: 📤 Upload Allure report as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: ./allure-report
           retention-days: 30
