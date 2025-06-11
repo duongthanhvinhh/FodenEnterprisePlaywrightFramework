@@ -46,7 +46,8 @@
   "devDependencies": {
     "@playwright/test": "^1.53.0",
     "@types/node": "^22.15.30",
-    "allure-commandline": "^2.34.0"
+    "allure-commandline": "^2.34.0",
+    "allure-playwright": "^3.2.2"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
