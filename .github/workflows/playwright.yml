@@ -20,9 +20,6 @@ jobs:
       contents: write
 
     steps:
-      - name: Print secret (⚠️ be careful!)
-        run: echo "${{ secrets.MY_SECRET }}"
-
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
