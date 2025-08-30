@@ -11,7 +11,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 4 : undefined,
-  reporter: [['html', { open: 'on-failure' }]],
+  reporter: [['html', {open: 'on-failure'}], ['list'], ['allure-playwright']],
   
   use: {
     baseURL: process.env.BOOKER_API_BASE_URL,
